@@ -6,8 +6,8 @@ import { BlurText } from './components/BlurText';
 import SplitText from './components/SplitText';
 import { Chatbot } from './components/Chatbot';
 import Lenis from 'lenis';
-import { gsap } from 'gsap-trial';
-import { ScrollTrigger } from 'gsap-trial/ScrollTrigger';
+import { gsap } from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
 
 gsap.registerPlugin(ScrollTrigger);
 

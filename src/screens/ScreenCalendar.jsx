@@ -1,8 +1,8 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { Sparkles, Calendar as CalIcon, ArrowUpRight, BookOpen, Sun } from 'lucide-react';
 import { calendarEventsData, languageMap, callGemini } from '../utils';
-import { gsap } from 'gsap-trial';
-import { ScrollTrigger } from 'gsap-trial/ScrollTrigger';
+import { gsap } from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
 
 const LITURGICAL_COLORS = {
   purple: { gradient: 'from-violet-600 to-indigo-800', dot: 'bg-violet-400', text: 'text-violet-400', badge: 'bg-violet-500/15 text-violet-300 border-violet-400/20' },

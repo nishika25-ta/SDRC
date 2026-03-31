@@ -3,8 +3,8 @@ import { ArrowDown, Bell, Pin, Megaphone, ShoppingBag, XCircle, MapPin, Clock, C
 import { BlurText } from '../components/BlurText';
 import { SaintOfTheDay } from '../components/SaintOfTheDay';
 import { DailyLiturgy } from '../components/DailyLiturgy';
-import { gsap } from 'gsap-trial';
-import { ScrollTrigger } from 'gsap-trial/ScrollTrigger';
+import { gsap } from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
 
 export function ScreenHome({ setScreen, lang, t }) {
   const weeklyPosts = [

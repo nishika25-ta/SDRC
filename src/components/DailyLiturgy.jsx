@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { BookOpen, ChevronRight, Sun, Moon, Calendar as CalIcon } from 'lucide-react';
 import { languageMap, callGemini } from '../utils';
-import { gsap } from 'gsap-trial';
+import { gsap } from 'gsap';
 
 const LITURGICAL_COLORS = {
   purple: {

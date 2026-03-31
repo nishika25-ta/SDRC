@@ -33,7 +33,7 @@ export function ScreenHome({ setScreen, lang, t }) {
   return (
     <div className="animate-[fadeIn_0.5s_ease-out_forwards]">
       <header className="relative h-[80vh] flex items-center justify-center overflow-hidden rounded-b-[3rem] shadow-sm mb-12 mx-4 mt-4">
-        <div ref={bgRef} className="absolute w-full h-[130%] -top-[15%] left-0 z-0" style={{ backgroundImage: "linear-gradient(to bottom, rgba(0,0,0,0.1), rgba(0,0,0,0.7)), url('hero_upscayl_4x_ultrasharp-4x.png')", backgroundSize: 'cover', backgroundPosition: 'center' }} />
+        <div ref={bgRef} className="absolute w-full h-[130%] -top-[15%] left-0 z-0" style={{ backgroundImage: "linear-gradient(to bottom, rgba(0,0,0,0.1), rgba(0,0,0,0.7)), url('/hero.png')", backgroundSize: 'cover', backgroundPosition: 'center' }} />
         <div className="relative z-10 text-center px-4 max-w-5xl mx-auto text-white flex flex-col items-center">
           <span className="text-sm md:text-base font-semibold tracking-widest uppercase mb-4 text-white/90">{t.hero.welcome}</span>
           <BlurText key={lang} text={t.hero.churchName} className="text-5xl md:text-8xl font-bold tracking-tighter mb-6 leading-[1.05]" delay={100} />

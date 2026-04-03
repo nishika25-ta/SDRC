@@ -6,17 +6,25 @@ export function MinistryMatcher({ t, lang }) {
   const [input, setInput] = useState('');
   const [loading, setLoading] = useState(false);
   const [match, setMatch] = useState(null);
+  const [fetchError, setFetchError] = useState(false);
 
   async function findMatch() {
     if (!input.trim()) return;
     setLoading(true);
+    setFetchError(false);
     const fullLang = languageMap[lang] || "English";
     const prompt = `Skills: "${input}". Suggest Choir, Liturgical, or Warden. Reason in ${fullLang}.`;
     const system = `Return JSON only: { "ministry": "Name", "reason": "1-sentence why in ${fullLang}" }`;
     try {
       const res = await callGemini(prompt, system);
       setMatch(res);
-    } catch (e) { console.error(e); } finally { setLoading(false); }
+    } catch (e) {
+      console.error(e);
+      setMatch(null);
+      setFetchError(true);
+    } finally {
+      setLoading(false);
+    }
   }
 
   return (
@@ -31,7 +39,11 @@ export function MinistryMatcher({ t, lang }) {
                 </button>
             </div>
             <div className="md:w-1/2 w-full flex items-center justify-center">
-                {match ? (
+                {fetchError ? (
+                    <div className="bg-white p-8 rounded-[2.5rem] shadow-sm w-full border border-red-100 text-center text-[#86868B]">
+                        {t.matcher.error}
+                    </div>
+                ) : match ? (
                     <div className="bg-white p-8 rounded-[2.5rem] shadow-sm w-full border border-black/5 animate-[fadeIn_0.5s_ease-out_forwards]">
                         <p className="text-xs font-bold uppercase tracking-[0.2em] text-[#9E804E] mb-2">{t.matcher.suggestion}</p>
                         <h4 className="text-3xl font-bold text-[#1D1D1F] mb-4">{match.ministry}</h4>

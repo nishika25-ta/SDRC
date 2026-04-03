@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { BookOpen, ChevronRight, Sun, Moon, Calendar as CalIcon } from 'lucide-react';
-import { languageMap, callGemini } from '../utils';
+import { languageMap, callGemini, normalizeLiturgicalColor } from '../utils';
 import { gsap } from 'gsap';
 
 const LITURGICAL_COLORS = {
@@ -41,18 +41,26 @@ const LITURGICAL_COLORS = {
 export function DailyLiturgy({ t, lang, setScreen }) {
   const [data, setData] = useState(null);
   const [loading, setLoading] = useState(true);
+  const [fetchError, setFetchError] = useState(false);
   const sectionRef = useRef(null);
 
   useEffect(() => {
     async function fetchTodayLiturgy() {
       setLoading(true);
+      setFetchError(false);
       const today = new Date().toLocaleDateString('en-GB', { day: 'numeric', month: 'long', year: 'numeric' });
       const fullLang = languageMap[lang] || "English";
       const systemPrompt = `Liturgical assistant for ${today}. Lang: ${fullLang}. Return JSON: { "title": "Day Name", "color": "purple/white/red/green", "ref": "Bible Reference", "text": "Summary" }`;
       try {
         const res = await callGemini("liturgy", systemPrompt);
         setData(res);
-      } catch (e) { console.error(e); } finally { setLoading(false); }
+      } catch (e) {
+        console.error(e);
+        setData(null);
+        setFetchError(true);
+      } finally {
+        setLoading(false);
+      }
     }
     fetchTodayLiturgy();
   }, [lang]);
@@ -67,7 +75,7 @@ export function DailyLiturgy({ t, lang, setScreen }) {
     }
   }, [loading, data]);
 
-  const theme = LITURGICAL_COLORS[data?.color?.toLowerCase()] || LITURGICAL_COLORS.white;
+  const theme = LITURGICAL_COLORS[normalizeLiturgicalColor(data?.color)] || LITURGICAL_COLORS.white;
 
   const now = new Date();
   const todayDate = now.toLocaleDateString(
@@ -131,6 +139,8 @@ export function DailyLiturgy({ t, lang, setScreen }) {
                   <div className="h-12 bg-white/10 rounded-2xl w-3/4 animate-pulse"></div>
                   <div className="h-6 bg-white/5 rounded-xl w-1/2 animate-pulse"></div>
                 </div>
+              ) : fetchError ? (
+                <p className="text-lg text-white/80">{t.liturgy.error}</p>
               ) : (
                 <>
                   <h2 className="text-3xl sm:text-4xl md:text-6xl lg:text-7xl font-bold tracking-tighter text-white leading-[1.05] mb-4">
@@ -165,6 +175,8 @@ export function DailyLiturgy({ t, lang, setScreen }) {
                   <div className="h-8 bg-white/5 rounded w-5/6 animate-pulse"></div>
                   <div className="h-8 bg-white/5 rounded w-3/5 animate-pulse"></div>
                 </div>
+              ) : fetchError ? (
+                <p className="text-white/70">{t.liturgy.error}</p>
               ) : (
                 <>
                   <blockquote className="mb-10">
@@ -213,7 +225,9 @@ export function DailyLiturgy({ t, lang, setScreen }) {
 
                 {/* Season Name */}
                 <h3 className="text-2xl md:text-3xl font-bold text-white tracking-tight mb-2">
-                  {loading ? <span className="inline-block h-7 bg-white/10 rounded-lg w-48 animate-pulse"></span> : (
+                  {loading ? <span className="inline-block h-7 bg-white/10 rounded-lg w-48 animate-pulse"></span> : fetchError ? (
+                    <span className="text-white/60 text-lg font-medium">{t.liturgy.error}</span>
+                  ) : (
                     data?.title?.toLowerCase().includes('lent') || data?.title?.toLowerCase().includes('holy')
                       ? t.calendar.seasonLent
                       : data?.title?.toLowerCase().includes('easter')
@@ -222,11 +236,11 @@ export function DailyLiturgy({ t, lang, setScreen }) {
                   )}
                 </h3>
                 <p className="text-sm text-white/40 mb-6">
-                  {data?.title?.toLowerCase().includes('lent') || data?.title?.toLowerCase().includes('holy')
+                  {!fetchError && !loading && (data?.title?.toLowerCase().includes('lent') || data?.title?.toLowerCase().includes('holy')
                     ? t.liturgy.prepLent
                     : data?.title?.toLowerCase().includes('easter')
                       ? t.liturgy.prepEaster
-                      : t.liturgy.prepOrdinary}
+                      : t.liturgy.prepOrdinary)}
                 </p>
 
                 {/* Season Progress */}

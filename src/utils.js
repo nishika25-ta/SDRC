@@ -1,3 +1,7 @@
+import { getGeminiApiKey } from "./utils/geminiEnv.js";
+
+export { getGeminiApiKey };
+
 export const languageMap = {
   en: "English",
   bm: "Bahasa Malaysia",
@@ -76,8 +80,8 @@ export const translations = {
     updates: { title: "Weekly Updates.", sub: "Latest news and reflections.", news: "Parish News", read: "Read article", moreNews: "View All News" },
     calendar: { title: "The Rhythm of Faith.", sub: "Journey through the sacred feasts, holydays, and liturgical seasons of the Church.", labelSeason: "Current Season", labelSignificance: "Spiritual Meaning", seasonLent: "Season of Lent", seasonEaster: "Easter Season", start: "Start", end: "End", todayQuote: "A time for reflection and renewal.", fullCalendar: "Full Calendar", feast: "feast", feasts: "feasts" },
     liturgy: { title: "Daily Liturgy", color: "Color", readings: "Readings", loading: "Retrieving Word...", error: "Unavailable.", today: "Today", active: "Active", phase: "Phase", morning: "Morning", evening: "Evening", towardsHolyWeek: "Towards Holy Week", prepLent: "A period of prayer, fasting, and preparation for Easter.", prepEaster: "A time of celebration and joy in the Resurrection.", prepOrdinary: "A journey of growth in the life of Christ.", ordinary: "Ordinary Time" },
-    saint: { title: "Saint of the Day", loading: "Finding today's Saint...", bio: "Biography", lesson: "Lesson for us" },
-    matcher: { title: "Ministry Matcher", sub: "Not sure where to serve? Tell us your talents and we'll suggest a group.", placeholder: "E.g., I like to sing and can play the guitar...", btn: "Get Suggestion", suggestion: "Your Suggested Ministry" },
+    saint: { title: "Saint of the Day", loading: "Finding today's Saint...", bio: "Biography", lesson: "Lesson for us", error: "We couldn't load today's saint. Please try again later." },
+    matcher: { title: "Ministry Matcher", sub: "Not sure where to serve? Tell us your talents and we'll suggest a group.", placeholder: "E.g., I like to sing and can play the guitar...", btn: "Get Suggestion", suggestion: "Your Suggested Ministry", error: "Couldn't get a suggestion. Please try again." },
     companion: { title: "A Moment of Peace.", sub: "Share what's on your heart, and receive personalized scripture and prayer.", placeholder: "E.g., I'm feeling anxious today...", btn: "Find Peace", btnLoading: "Reflecting...", prayerLabel: "Your Prayer", error: "Connection error. Please try again." },
     chronicle: { 
       kicker: "The Parish Chronicle", title: "A Legacy of Faith in Miri.", sub: "From a shop lot to a beacon of community.",
@@ -142,8 +146,8 @@ export const translations = {
     updates: { title: "Berita Mingguan.", sub: "Berita dan renungan terkini.", news: "Berita Paroki", read: "Baca", moreNews: "Lihat Semua Berita" },
     calendar: { title: "Kitaran Musim Rohani.", sub: "Selami perjalanan iman melalui perayaan suci dan peredaran musim liturgi Gereja.", labelSeason: "Musim Semasa", labelSignificance: "Makna Rohani", seasonLent: "Musim Pra-Paskah", seasonEaster: "Musim Paskah", start: "Mula", end: "Tamat", todayQuote: "Masa untuk renungan dan pembaharuan.", fullCalendar: "Kalendar Penuh", feast: "perayaan", feasts: "perayaan" },
     liturgy: { title: "Liturgi Harian", color: "Warna", readings: "Bacaan", loading: "Mengambil Sabda...", error: "Tidak tersedia.", today: "Hari Ini", active: "Aktif", phase: "Fasa", morning: "Pagi", evening: "Petang", towardsHolyWeek: "Menuju Minggu Kudus", prepLent: "Waktu doa, berpuasa, dan persediaan untuk Paskah.", prepEaster: "Masa kegembiraan dan sukacita atas Kebangkitan.", prepOrdinary: "Perjalanan pertumbuhan dalam kehidupan Kristus.", ordinary: "Masa Biasa" },
-    saint: { title: "Santu Hari Ini", loading: "Mencari Santu hari ini...", bio: "Biografi", lesson: "Pengajaran untuk kita" },
-    matcher: { title: "Padanan Pelayanan", sub: "Tidak pasti mahu berkhidmat di mana? Beritahu bakat anda.", placeholder: "Cth: Saya suka menyanyi dan boleh bermain gitar...", btn: "Dapatkan Cadangan", suggestion: "Pelayanan Cadangan Anda" },
+    saint: { title: "Santu Hari Ini", loading: "Mencari Santu hari ini...", bio: "Biografi", lesson: "Pengajaran untuk kita", error: "Tidak dapat memuatkan santu hari ini. Sila cuba lagi nanti." },
+    matcher: { title: "Padanan Pelayanan", sub: "Tidak pasti mahu berkhidmat di mana? Beritahu bakat anda.", placeholder: "Cth: Saya suka menyanyi dan boleh bermain gitar...", btn: "Dapatkan Cadangan", suggestion: "Pelayanan Cadangan Anda", error: "Tidak dapat mendapatkan cadangan. Sila cuba lagi." },
     companion: { title: "Masa Ketenangan.", sub: "Kongsi apa yang ada di hati anda, dan terima doa peribadi.", placeholder: "Cth: Saya merasa bimbang hari ini...", btn: "Cari Ketenangan", btnLoading: "Merenung...", prayerLabel: "Doa Anda", error: "Ralat sambungan. Sila cuba lagi." },
     chronicle: { 
       kicker: "Kronikel Paroki", title: "Warisan Iman di Miri.", sub: "Dari lot kedai ke mercu tanda komuniti.",
@@ -208,8 +212,8 @@ export const translations = {
     updates: { title: "Berita Minggu Tu.", sub: "Berita enggau penemu baru.", news: "Berita Paroki", read: "Macha", moreNews: "Peda Semua Berita" },
     calendar: { title: "Musim Pengarap Kitai.", sub: "Sama mih kitai nginang rita gawai kudus enggau perenial musim pengarap dalam Gereja.", labelSeason: "Musim diatu", labelSignificance: "Reti ba Ati", seasonLent: "Musim Lent", seasonEaster: "Musim Paskah", start: "Berengkah", end: "Ujung", todayQuote: "Maya ngenang sereta dikemanahka.", fullCalendar: "Kalendar Semua", feast: "gawai", feasts: "bala gawai" },
     liturgy: { title: "Liturgi Seharitu", color: "Chura", readings: "Bacha", loading: "Ngambil Sabda...", error: "Enda ulih dipeda.", today: "Seharitu", active: "Aktif", phase: "Tikas", morning: "Pagi", evening: "Lemai", towardsHolyWeek: "Nuju Minggu Kudus", prepLent: "Maya sampi, bepuasa, sereta nyiapka diri ke Paskah.", prepEaster: "Maya ngerami pengangkat baru Tuhan Yesus.", prepOrdinary: "Bejalai mansang dalam pengidup enggau Kristus.", ordinary: "Maya Biasa" },
-    saint: { title: "Santu Seharitu", loading: "Ngiga Santu seharitu...", bio: "Cherita Pengidup", lesson: "Sangka ke kitai" },
-    matcher: { title: "Padanan Pelayanan", sub: "Enda tentu nemu dini deka gawa? Padahka pengelandik nuan.", placeholder: "Chunto: Aku rindu belagu lalu ulih nyagu gitar...", btn: "Giga Cadangan", suggestion: "Pelayanan ke Dikandalka" },
+    saint: { title: "Santu Seharitu", loading: "Ngiga Santu seharitu...", bio: "Cherita Pengidup", lesson: "Sangka ke kitai", error: "Enda ulih ngeda santu seharitu. Jaku baru ke udah." },
+    matcher: { title: "Padanan Pelayanan", sub: "Enda tentu nemu dini deka gawa? Padahka pengelandik nuan.", placeholder: "Chunto: Aku rindu belagu lalu ulih nyagu gitar...", btn: "Giga Cadangan", suggestion: "Pelayanan ke Dikandalka", error: "Enda ulih ngaga cadangan. Jaku baru." },
     companion: { title: "Maya Pengelantang.", sub: "Padahka utai ba ati nuan, lalu terima bacha enggau sampi.", placeholder: "Chunto: Aku berasai nangi seharitu...", btn: "Giga Pengelantang", btnLoading: "Merenung...", prayerLabel: "Sampi Nuan", error: "Salah sambung. Cuba baru." },
     chronicle: { 
       kicker: "Cherita Paroki", title: "Pesaka Pengarap ba Miri.", sub: "Ari kedai mit ngagai gereja besai.",
@@ -268,9 +272,46 @@ export const translations = {
   }
 };
 
+/** Map model color strings to theme keys used in UI (purple | red | green | white). */
+export function normalizeLiturgicalColor(raw) {
+  if (!raw || typeof raw !== "string") return "white";
+  const c = raw.toLowerCase();
+  if (c.includes("purple") || c.includes("violet")) return "purple";
+  if (c.includes("red") || c.includes("rose")) return "red";
+  if (c.includes("green")) return "green";
+  if (c.includes("white") || c.includes("gold")) return "white";
+  return "white";
+}
+
+function parseRetrySecondsFromGeminiError(message) {
+  if (!message || typeof message !== "string") return null;
+  const m = message.match(/retry in ([\d.]+)\s*s/i);
+  if (m) return Math.ceil(parseFloat(m[1], 10) * 1000);
+  return null;
+}
+
+function extractJsonFromModelText(text) {
+  if (!text || typeof text !== "string") return null;
+  let s = text.replace(/```json\s*/gi, "").replace(/```/g, "").trim();
+  try {
+    return JSON.parse(s);
+  } catch {
+    /* continue */
+  }
+  const start = s.indexOf("{");
+  const end = s.lastIndexOf("}");
+  if (start >= 0 && end > start) {
+    try {
+      return JSON.parse(s.slice(start, end + 1));
+    } catch {
+      return null;
+    }
+  }
+  return null;
+}
+
 export async function callGemini(prompt, systemInstruction, retries = 3) {
-  // Use environment variable if provided, else use empty string
-  const apiKey = import.meta.env?.VITE_GEMINI_API_KEY || "";
+  const apiKey = getGeminiApiKey();
   
   if (!apiKey) {
     // Simulate network delay for realistic feel
@@ -312,10 +353,14 @@ export async function callGemini(prompt, systemInstruction, retries = 3) {
       };
     }
     
-    // MOCK: Chatbot
-    if (systemInstruction.includes("compassionate Catholic companion for St Dominic")) {
+    // MOCK: Chatbot (legacy + EdenAI open-ended JSON)
+    if (
+      systemInstruction.includes("compassionate Catholic companion for St Dominic") ||
+      (systemInstruction.includes("EdenAI") && systemInstruction.includes('"reply"'))
+    ) {
       return {
-        reply: "Shalom! Peace be with you. I am your advanced companion. I noticed the active API key is currently missing from your environment, but I am fully ready to answer any questions and adapt playfully to whatever you need once it is entered!"
+        reply:
+          "Shalom! Peace be with you. I am EdenAI. Add a Gemini API key in .env for full open-ended answers; meanwhile try keywords like Mass, location, donate, or Triduum.",
       };
     }
 
@@ -334,7 +379,7 @@ export async function callGemini(prompt, systemInstruction, retries = 3) {
     throw new Error("No mock response configured for this prompt.");
   }
 
-  const endpoint = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-09-2025:generateContent?key=${apiKey}`;
+  const endpoint = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=${apiKey}`;
   
   const payload = {
     contents: [{ parts: [{ text: prompt }] }],
@@ -348,18 +393,144 @@ export async function callGemini(prompt, systemInstruction, retries = 3) {
   for (let i = 0; i < retries; i++) {
     try {
       const response = await fetch(endpoint, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(payload)
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(payload),
       });
-      if (!response.ok) throw new Error(`HTTP ${response.status}`);
       const data = await response.json();
-      let text = data.candidates[0].content.parts[0].text;
-      text = text.replace(/```json/g, "").replace(/```/g, "").trim();
-      return JSON.parse(text);
+
+      if (data.error) {
+        const msg = data.error.message || "Gemini API error";
+        const waitMs = parseRetrySecondsFromGeminiError(msg);
+        if (response.status === 429 && i < retries - 1) {
+          await new Promise((r) => setTimeout(r, waitMs ?? 8000 * (i + 1)));
+          continue;
+        }
+        throw new Error(msg);
+      }
+
+      if (!response.ok) {
+        throw new Error(`HTTP ${response.status}`);
+      }
+
+      const block = data.promptFeedback?.blockReason;
+      if (block) {
+        throw new Error(`Request blocked: ${block}`);
+      }
+
+      const parts = data.candidates?.[0]?.content?.parts;
+      const text = parts?.[0]?.text;
+      if (!text) {
+        const reason = data.candidates?.[0]?.finishReason || "empty";
+        throw new Error(`No model text (finish: ${reason})`);
+      }
+
+      const parsed = extractJsonFromModelText(text);
+      if (parsed === null || typeof parsed !== "object") {
+        throw new Error("Model did not return valid JSON");
+      }
+      return parsed;
     } catch (e) {
       if (i === retries - 1) throw e;
-      await new Promise(r => setTimeout(r, 1000 * Math.pow(2, i)));
+      await new Promise((r) => setTimeout(r, 1000 * Math.pow(2, i)));
+    }
+  }
+}
+
+/**
+ * Multi-turn chat for EdenAI. `messages` uses roles "user" | "assistant".
+ * Maps to Gemini roles user | model. Last ~24 messages are kept to control tokens.
+ */
+export async function callGeminiChat(chatMessages, systemInstruction, retries = 3) {
+  const apiKey = getGeminiApiKey();
+  const trimmed = Array.isArray(chatMessages)
+    ? chatMessages.slice(-24).filter((m) => m && typeof m.text === "string" && m.text.length > 0)
+    : [];
+
+  if (!apiKey) {
+    await new Promise((r) => setTimeout(r, 900));
+    const lastUser = [...trimmed].reverse().find((m) => m.role === "user");
+    const snippet = (lastUser?.text || "").slice(0, 140);
+    const isIB = systemInstruction.includes("Bahasa Iban");
+    const isBM = systemInstruction.includes("Bahasa Malaysia");
+    if (isIB) {
+      return {
+        reply: `Shalom! Aku EdenAI (demo nadai API). Tambah VITE_GEMINI_API_KEY ngagai .env ke nguna AI penuh. Nuan madah: "${snippet}"`,
+      };
+    }
+    if (isBM) {
+      return {
+        reply: `Shalom! Saya EdenAI (mod demo tanpa API). Tambah kunci Gemini dalam .env untuk jawapan penuh. Anda berkata: "${snippet}"`,
+      };
+    }
+    return {
+      reply: `Shalom! I'm EdenAI (offline demo—add VITE_GEMINI_API_KEY for full Gemini). You said: "${snippet}". Use the site tabs for Liturgy, Calendar, Donate, and Moment of Peace.`,
+    };
+  }
+
+  if (trimmed.length === 0) {
+    throw new Error("No messages to send");
+  }
+
+  const endpoint = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=${apiKey}`;
+  const contents = trimmed.map((m) => ({
+    role: m.role === "assistant" ? "model" : "user",
+    parts: [{ text: m.text }],
+  }));
+
+  const payload = {
+    contents,
+    systemInstruction: { parts: [{ text: systemInstruction }] },
+    generationConfig: {
+      responseMimeType: "application/json",
+      temperature: 0.55,
+      maxOutputTokens: 2048,
+    },
+  };
+
+  for (let i = 0; i < retries; i++) {
+    try {
+      const response = await fetch(endpoint, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(payload),
+      });
+      const data = await response.json();
+
+      if (data.error) {
+        const msg = data.error.message || "Gemini API error";
+        const waitMs = parseRetrySecondsFromGeminiError(msg);
+        if (response.status === 429 && i < retries - 1) {
+          await new Promise((r) => setTimeout(r, waitMs ?? 8000 * (i + 1)));
+          continue;
+        }
+        throw new Error(msg);
+      }
+
+      if (!response.ok) {
+        throw new Error(`HTTP ${response.status}`);
+      }
+
+      const block = data.promptFeedback?.blockReason;
+      if (block) {
+        throw new Error(`Request blocked: ${block}`);
+      }
+
+      const parts = data.candidates?.[0]?.content?.parts;
+      const text = parts?.[0]?.text;
+      if (!text) {
+        const reason = data.candidates?.[0]?.finishReason || "empty";
+        throw new Error(`No model text (finish: ${reason})`);
+      }
+
+      const parsed = extractJsonFromModelText(text);
+      if (parsed === null || typeof parsed !== "object") {
+        throw new Error("Model did not return valid JSON");
+      }
+      return parsed;
+    } catch (e) {
+      if (i === retries - 1) throw e;
+      await new Promise((r) => setTimeout(r, 1000 * Math.pow(2, i)));
     }
   }
 }

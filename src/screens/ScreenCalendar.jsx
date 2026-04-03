@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { Sparkles, Calendar as CalIcon, ArrowUpRight, BookOpen, Sun } from 'lucide-react';
-import { calendarEventsData, languageMap, callGemini } from '../utils';
+import { calendarEventsData, languageMap, callGemini, normalizeLiturgicalColor } from '../utils';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 
@@ -15,15 +15,23 @@ export function ScreenCalendar({ t, lang }) {
     const containerRef = useRef(null);
     const [liturgy, setLiturgy] = useState(null);
     const [loading, setLoading] = useState(true);
+    const [fetchError, setFetchError] = useState(false);
 
     useEffect(() => {
         async function fetchToday() {
             setLoading(true);
+            setFetchError(false);
             const todayStr = new Date().toLocaleDateString('en-GB', { day: 'numeric', month: 'long', year: 'numeric' });
             try {
                 const res = await callGemini("liturgy", `Liturgical context for ${todayStr} in ${languageMap[lang]}. Return JSON: { "title": "Day Name", "color": "purple/white/red/green", "season": "Current Season" }`);
                 setLiturgy(res);
-            } catch (e) { console.error(e); } finally { setLoading(false); }
+            } catch (e) {
+                console.error(e);
+                setLiturgy(null);
+                setFetchError(true);
+            } finally {
+                setLoading(false);
+            }
         }
         fetchToday();
     }, [lang]);
@@ -59,10 +67,10 @@ export function ScreenCalendar({ t, lang }) {
         { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' }
     );
 
-    const theme = LITURGICAL_COLORS[liturgy?.color?.toLowerCase()] || LITURGICAL_COLORS.white;
+    const theme = LITURGICAL_COLORS[normalizeLiturgicalColor(liturgy?.color)] || LITURGICAL_COLORS.white;
 
     // Determine current season text
-    const seasonText = loading ? '...' : (liturgy?.season || t.liturgy.ordinary);
+    const seasonText = loading ? '...' : fetchError ? t.liturgy.error : (liturgy?.season || t.liturgy.ordinary);
 
     return (
         <div className="pt-24 pb-32 px-4 max-w-7xl mx-auto" ref={containerRef}>
@@ -102,7 +110,7 @@ export function ScreenCalendar({ t, lang }) {
                         {/* Title + Season */}
                         <div className="flex-1 text-center md:text-left">
                             <h2 className="text-3xl md:text-4xl font-bold text-white tracking-tight mb-3">
-                                {loading ? <div className="h-8 bg-white/10 rounded-xl w-48 animate-pulse mx-auto md:mx-0"></div> : liturgy?.title}
+                                {loading ? <div className="h-8 bg-white/10 rounded-xl w-48 animate-pulse mx-auto md:mx-0"></div> : fetchError ? t.liturgy.error : liturgy?.title}
                             </h2>
                             <div className="flex items-center gap-3 justify-center md:justify-start">
                                 <div className={`w-2 h-2 rounded-full animate-pulse ${theme.dot}`}></div>
